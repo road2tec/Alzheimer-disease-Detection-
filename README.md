@@ -11,6 +11,18 @@ Usually, AI only looks at brain scans. But a scan alone doesn't tell the **Whole
 - **Clear Proof (XAI)**: We don't keep our AI a secret. Every result includes visual mapping to show exactly why the AI gave its score.
 - **Secure Node Registry**: Industry-standard JWT authentication with role-based access for clinicians and patients.
 
+## ⚠️ Important Configuration
+The AI Brain (`hybrid_alzheimer_model.pt`) is **required** to run this system but is excluded from the repository due to size (~344MB). 
+- Ensure you have the trained model file placed in: `app/backend/models/hybrid_alzheimer_model.pt`
+- Without this file, the prediction engine will not start.
+
+## 🏗️ System Architecture
+Our **Multi-Modal Hybrid Network** is designed to mimic clinical decision-making:
+1.  **Visual Cortex (ViT)**: A Vision Transformer processes the raw MRI scans, using self-attention to identify subtle atrophy patterns (e.g., in the hippocampus).
+2.  **Clinical Logic (MLP)**: A Multi-Layer Perceptron analyzes patient demographics (Age, Gender, MMSE scores).
+3.  **Fusion Layer**: The system concatenates these two feature vectors into a single "Medical Understanding" tensor for the final diagnosis.
+4.  **Explainability**: Every result is back-propagated to generate a Grad-CAM heatmap, showing *where* the AI looked.
+
 ## 📂 Project Structure
 ```text
 project_root/
