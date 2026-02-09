@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+    --color-medical-50: #f8f7ff;
+    --color-medical-100: #f0eeff;
+    --color-medical-200: #e0dbff;
+    --color-medical-300: #c1b8ff;
+    --color-medical-400: #a295ff;
+    --color-medical-500: #8372ff;
+    --color-medical-600: #7a3fff;
+    --color-medical-700: #6b2cf5;
+    --color-medical-800: #5a23cf;
+    --color-medical-900: #4b1da9;
+    --color-medical-950: #2d1265;
+}
+
+:root {
+    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+body {
+    margin: 0;
+    color: #1e293b;
+}
+
+@media print {
+
+    nav,
+    footer,
+    button,
+    .no-print {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
