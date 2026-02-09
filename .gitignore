@@ -1,0 +1,26 @@
+# Data & Models
+data/
+models/
+*.pt
+
+# Environment
+.env
+app/backend/.env
+app/backend/check_users.py
+app/backend/update_user.py
+
+# Build/JS
+node_modules/
+app/frontend/dist/
+app/frontend/node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
