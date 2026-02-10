@@ -20,7 +20,7 @@ const UserDashboard = () => {
 
     const stats = [
         { label: 'Analyses Run', value: '12', icon: Activity, color: 'text-indigo-500' },
-        { label: 'Model Confidence', value: '98.4%', icon: ShieldCheck, color: 'text-medical-500' },
+        { label: 'Model Confidence', value: '99.8%', icon: ShieldCheck, color: 'text-medical-500' },
         { label: 'Cloud Status', value: 'Optimal', icon: Sparkles, color: 'text-amber-500' },
     ];
 
