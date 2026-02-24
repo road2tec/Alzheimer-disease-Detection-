@@ -43,10 +43,8 @@ Ensure you have **MongoDB** installed and running on your local machine.
 
 ### 2. Backend Command Center
 ```bash
-# From project root
-pip install -r requirements.txt
-
 cd app/backend
+pip install -r requirements.txt
 cp .env.example .env  # Configure your secrets
 python app.py
 ```

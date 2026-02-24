@@ -12,7 +12,7 @@ predict_bp = Blueprint('predict', __name__)
 
 # Config
 MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models', 'hybrid_alzheimer_model.pt')
-GRAD_CAM_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'results', 'grad_cam')
+GRAD_CAM_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), 'results', 'grad_cam')
 
 # Load Model
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -45,7 +45,6 @@ def predict(current_user_id, user_role):
             outputs = model(img_tensor, clinical_tensor)
             probs = torch.softmax(outputs, dim=1)
             confidence, predicted_idx = torch.max(probs, 1)
-            confidence = torch.tensor(0.998) # DEMO OVERRIDE
         
         labels = ['CN', 'MCI', 'AD']
         prediction = labels[predicted_idx.item()]
