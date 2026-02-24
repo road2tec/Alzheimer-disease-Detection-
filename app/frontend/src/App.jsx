@@ -10,6 +10,7 @@ import About from './pages/About'
 import WhyUs from './pages/WhyUs'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
+import DoctorDashboard from './pages/DoctorDashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 import { useAuth } from './context/AuthContext'
 
@@ -33,8 +34,14 @@ function App() {
                     <Route path="/why-us" element={<WhyUs />} />
 
                     <Route path="/dashboard" element={
-                        <ProtectedRoute allowedRoles={['user', 'admin']}>
+                        <ProtectedRoute allowedRoles={['user', 'admin', 'doctor']}>
                             <UserDashboard />
+                        </ProtectedRoute>
+                    } />
+
+                    <Route path="/doctor" element={
+                        <ProtectedRoute allowedRoles={['doctor', 'admin']}>
+                            <DoctorDashboard />
                         </ProtectedRoute>
                     } />
 

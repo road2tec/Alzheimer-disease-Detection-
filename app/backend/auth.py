@@ -54,3 +54,12 @@ def admin_required(f):
             return jsonify({'message': 'Admin privilege required!'}), 403
         return f(current_user_id, user_role, *args, **kwargs)
     return decorated
+
+def doctor_required(f):
+    @wraps(f)
+    @token_required
+    def decorated(current_user_id, user_role, *args, **kwargs):
+        if user_role not in ['doctor', 'admin']:
+            return jsonify({'message': 'Doctor privilege required!'}), 403
+        return f(current_user_id, user_role, *args, **kwargs)
+    return decorated

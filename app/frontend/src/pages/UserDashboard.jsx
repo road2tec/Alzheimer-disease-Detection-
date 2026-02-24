@@ -4,6 +4,7 @@ import UploadMRI from '../dashboard/UploadMRI';
 import Results from '../dashboard/Results';
 import History from '../dashboard/History';
 import Sidebar from '../components/Sidebar';
+import DoctorPlans from '../dashboard/DoctorPlans';
 import { useAuth } from '../context/AuthContext';
 import { Sparkles, Activity, ShieldCheck, Clock, Download, Share2, MoreHorizontal, UserCircle, Settings } from 'lucide-react';
 
@@ -123,6 +124,33 @@ const UserDashboard = () => {
                                             <Results result={lastResult} />
                                         </div>
                                     )}
+                                </div>
+                            )}
+
+                            {activeTab === 'plans' && (
+                                <div className="max-w-4xl mx-auto">
+                                    <DoctorPlans />
+                                </div>
+                            )}
+
+                            {activeTab === 'feedback' && (
+                                <div className="max-w-2xl mx-auto flex flex-col items-center justify-center min-h-[40vh] py-12">
+                                    <div className="w-16 h-16 bg-medical-50 text-medical-600 rounded-3xl flex items-center justify-center mb-8 shadow-inner">
+                                        <Activity className="w-8 h-8" />
+                                    </div>
+                                    <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Submit Evaluation Feedback</h2>
+                                    <p className="text-slate-500 text-center font-medium mb-12">Help us refine our neural diagnostic models with your professional or personal feedback.</p>
+
+                                    <form className="w-full space-y-6" onSubmit={(e) => {
+                                        e.preventDefault();
+                                        alert("Thank you for your feedback!");
+                                    }}>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Quality Assessment</label>
+                                            <textarea className="w-full p-6 bg-slate-50 border border-slate-100 rounded-[2rem] outline-none focus:ring-4 focus:ring-medical-500/10 focus:border-medical-500 transition-all min-h-[160px] text-sm font-medium text-slate-700" placeholder="Describe your experience with the AI analysis..."></textarea>
+                                        </div>
+                                        <button className="w-full py-4 bg-medical-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] shadow-xl shadow-medical-500/20 hover:bg-medical-700 active:scale-95 transition-all">Transmit Feedback</button>
+                                    </form>
                                 </div>
                             )}
 

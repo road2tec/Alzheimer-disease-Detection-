@@ -65,3 +65,32 @@ def get_stats(current_user_id, user_role):
         "dailyActivity": formatted_activity,
         "recentPredictions": recent_predictions
     }), 200
+
+@admin_bp.route('/users/<user_id>', methods=['DELETE'])
+@admin_required
+def delete_user(current_user_id, user_role, user_id):
+    from bson import ObjectId
+    try:
+        res = users_collection.delete_one({"_id": ObjectId(user_id)})
+        if res.deleted_count:
+            return jsonify({"message": "User deleted"}), 200
+        return jsonify({"error": "User not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@admin_bp.route('/users/<user_id>/role', methods=['POST'])
+@admin_required
+def update_user_role(current_user_id, user_role, user_id):
+    from flask import request
+    from bson import ObjectId
+    new_role = request.json.get('role')
+    if new_role not in ['user', 'doctor', 'admin']:
+        return jsonify({"error": "Invalid role"}), 400
+    
+    try:
+        res = users_collection.update_one({"_id": ObjectId(user_id)}, {"$set": {"role": new_role}})
+        if res.modified_count:
+            return jsonify({"message": f"Role updated to {new_role}"}), 200
+        return jsonify({"error": "Update failed"}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

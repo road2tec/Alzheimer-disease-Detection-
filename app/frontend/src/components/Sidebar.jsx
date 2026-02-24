@@ -12,14 +12,19 @@ import { useAuth } from '../context/AuthContext';
 import OrbSymbol from './OrbSymbol';
 
 const Sidebar = ({ activeTab, onTabChange }) => {
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
 
     const menuItems = [
-        { id: 'analyze', label: 'Workspace', icon: Microscope },
-        { id: 'history', label: 'Records', icon: History },
-        { id: 'profile', label: 'Profile', icon: UserCircle },
-        { id: 'settings', label: 'Settings', icon: Settings },
+        { id: 'analyze', label: 'Workspace', icon: Microscope, roles: ['user', 'admin'] },
+        { id: 'patients', label: 'Patients', icon: Users, roles: ['doctor', 'admin'] },
+        { id: 'history', label: 'Records', icon: History, roles: ['user', 'doctor', 'admin'] },
+        { id: 'plans', label: 'Care Plans', icon: Activity, roles: ['user'] },
+        { id: 'feedback', label: 'Feedback', icon: LogOut, roles: ['user'] }, // Reusing LogOut icon temporarily if needed or find suitable
+        { id: 'profile', label: 'Profile', icon: UserCircle, roles: ['user', 'doctor', 'admin'] },
+        { id: 'settings', label: 'Settings', icon: Settings, roles: ['user', 'doctor', 'admin'] },
     ];
+
+    const filteredMenu = menuItems.filter(item => item.roles.includes(user.role));
 
     return (
         <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-72 bg-slate-950 shadow-[4px_0_50px_rgba(0,0,0,0.5)] border-r border-white/5 flex-col py-12 z-50 overflow-hidden">
@@ -41,8 +46,8 @@ const Sidebar = ({ activeTab, onTabChange }) => {
             </div>
 
             {/* Navigation items */}
-            <nav className="flex-grow flex flex-col gap-2 px-4 relative z-10">
-                {menuItems.map((item) => (
+            <nav className="flex-grow flex flex-col gap-2 px-4 relative z-10 overflow-y-auto max-h-[60vh]">
+                {filteredMenu.map((item) => (
                     <button
                         key={item.id}
                         onClick={() => onTabChange(item.id)}
