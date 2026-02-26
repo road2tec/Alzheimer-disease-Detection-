@@ -42,7 +42,7 @@ if __name__ == '__main__':
     import os
     if os.name == 'nt':
         from waitress import serve
-        print("Starting robust WSGI server with Waitress on port 5000...")
-        serve(app, host='0.0.0.0', port=5000)
+        print("Starting robust WSGI server with Waitress on port 5001...")
+        serve(app, host='0.0.0.0', port=5001)
     else:
-        app.run(host='0.0.0.0', port=5000, debug=True)
+        app.run(host='0.0.0.0', port=5001, debug=True)

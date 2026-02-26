@@ -17,7 +17,14 @@ GRAD_CAM_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(o
 
 # Load Model
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = load_model(MODEL_PATH, DEVICE)
+model = None
+
+def get_model():
+    global model
+    if model is None:
+        print("Lazy loading PyTorch model...")
+        model = load_model(MODEL_PATH, DEVICE)
+    return model
 
 @predict_bp.route('/predict', methods=['POST'])
 @token_required
@@ -45,8 +52,9 @@ def predict(current_user_id, user_role):
         clinical_tensor = preprocess_clinical(clinical_data).to(DEVICE)
         
         # Inference
+        current_model = get_model()
         with torch.no_grad():
-            outputs = model(img_tensor, clinical_tensor)
+            outputs = current_model(img_tensor, clinical_tensor)
             probs = torch.softmax(outputs, dim=1)
             confidence, predicted_idx = torch.max(probs, 1)
         
@@ -55,7 +63,7 @@ def predict(current_user_id, user_role):
         
         # Explainability - Unique filename
         grad_cam_filename = f"gradcam_{prediction_id}.png"
-        generate_attention_map(model, img_tensor, GRAD_CAM_FOLDER, filename=grad_cam_filename)
+        generate_attention_map(current_model, img_tensor, GRAD_CAM_FOLDER, filename=grad_cam_filename)
         
         # Clean up temp file
         if os.path.exists(temp_path):
