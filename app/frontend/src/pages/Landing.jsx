@@ -39,14 +39,8 @@ const Landing = () => {
                 {/* Background Image with Overlay */}
                 <motion.div
                     style={{ y: backgroundY }}
-                    className="absolute inset-0 -z-20 w-full h-[120%]"
-                >
-                    <div
-                        className="absolute inset-0 bg-cover bg-center opacity-100"
-                        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000')` }}
-                    ></div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/70 via-white/90 to-white"></div>
-                </motion.div>
+                    className="absolute inset-0 bg-gradient-to-b from-indigo-50/30 via-white to-white -z-20"
+                ></motion.div>
 
                 {/* Decorative Background Blobs */}
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-50/20 rounded-full blur-[120px] -z-10 translate-x-1/3 -translate-y-1/3"></div>
@@ -132,22 +126,29 @@ const Landing = () => {
                             transition={{ duration: 1.5, ease: "easeOut" }}
                             className="relative w-full max-w-md aspect-square"
                         >
-                            {/* Medical Iconography */}
+                            {/* Realistic Medical Image */}
                             <motion.div
                                 animate={{
                                     y: [-15, 15, -15],
                                 }}
                                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                                className="relative w-full h-full bg-white rounded-[4rem] border border-slate-100 shadow-2xl shadow-indigo-100 flex items-center justify-center overflow-hidden"
+                                className="relative w-full h-full bg-white rounded-[4rem] border border-slate-100 shadow-2xl shadow-indigo-100 flex items-center justify-center overflow-hidden group"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent"></div>
-                                <OrbSymbol size="lg" className="scale-[3] text-indigo-600 opacity-80" />
+                                <img
+                                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800"
+                                    alt="Medical Analysis"
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-indigo-900/10"></div>
 
-                                {/* Scanning Laser Line */}
+                                {/* Overlay Gradient for depth */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/20 to-transparent"></div>
+
+                                {/* Scanning Laser Line (Optional, keeping for tech feel) */}
                                 <motion.div
                                     animate={{ top: ['-10%', '110%'] }}
                                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                    className="absolute left-0 right-0 h-[2px] bg-indigo-400/30 blur-[1px] z-10"
+                                    className="absolute left-0 right-0 h-[2px] bg-indigo-400/50 blur-[1px] z-10"
                                 />
                             </motion.div>
 
