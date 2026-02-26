@@ -7,6 +7,7 @@ import History from '../dashboard/History';
 import Sidebar from '../components/Sidebar';
 import DoctorPlans from '../dashboard/DoctorPlans';
 import { useAuth } from '../context/AuthContext';
+import { feedbackApi } from '../services/api';
 import {
     Sparkles,
     Activity,
@@ -154,18 +155,27 @@ const UserDashboard = () => {
                                         <p className="text-slate-500 font-medium">Help us improve our ML Model system by sharing your experience.</p>
                                     </div>
 
-                                    <form className="space-y-6" onSubmit={(e) => {
+                                    <form className="space-y-6" onSubmit={async (e) => {
                                         e.preventDefault();
-                                        alert("Thank you for your feedback!");
+                                        const content = e.target.feedback.value;
+                                        if (!content) return;
+                                        try {
+                                            await feedbackApi.submit({ content, rating: 5 });
+                                            alert("Thank you for your feedback! The platform admins will review it.");
+                                            e.target.reset();
+                                        } catch (err) {
+                                            alert("Failed to submit feedback.");
+                                        }
                                     }}>
                                         <div className="space-y-3">
                                             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Your Experience</label>
                                             <textarea
+                                                name="feedback"
                                                 className="w-full p-6 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:bg-white focus:border-indigo-500 transition-all min-h-[180px] font-semibold text-slate-800 placeholder:text-slate-300"
                                                 placeholder="What did you think of the analysis?"
                                             ></textarea>
                                         </div>
-                                        <button className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm tracking-widest uppercase shadow-lg shadow-slate-200 hover:bg-indigo-600 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                                        <button type="submit" className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm tracking-widest uppercase shadow-lg shadow-slate-200 hover:bg-indigo-600 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
                                             Send Feedback <Zap className="w-4 h-4 text-indigo-300" />
                                         </button>
                                     </form>
