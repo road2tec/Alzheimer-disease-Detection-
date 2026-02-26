@@ -23,16 +23,21 @@ const Sidebar = ({ activeTab, onTabChange }) => {
     const navigate = useNavigate();
 
     const menuItems = [
-        { id: 'insights', label: 'Overview', icon: LayoutDashboard, roles: ['admin'] },
+        // Admin
+        { id: 'admin-hub', label: 'User Hub', icon: Users, roles: ['admin'] },
+        { id: 'insights', label: 'System Overview', icon: LayoutDashboard, roles: ['admin'] },
+        { id: 'admin-reviews', label: 'Moderate Reviews', icon: ShieldCheck, roles: ['admin'] },
+
+        // Doctor
+        { id: 'patients', label: 'My Patients', icon: Users, roles: ['doctor'] },
+        { id: 'doctor-plans', label: 'Manage Plans', icon: ClipboardList, roles: ['doctor'] },
+        { id: 'doctor-reviews', label: 'My Reviews', icon: MessageSquareQuote, roles: ['doctor'] },
+
+        // User
         { id: 'analyze', label: 'Check Brain', icon: Microscope, roles: ['user'] },
-        { id: 'admin-hub', label: 'Admin Hub', icon: ShieldCheck, roles: ['admin'] },
-        { id: 'patients', label: 'Patients', icon: Users, roles: ['doctor'] },
-        { id: 'history', label: 'Past Tests', icon: History, roles: ['user', 'doctor', 'admin'] },
-        { id: 'plans', label: 'Care Plans', icon: ClipboardList, roles: ['user', 'doctor'] },
-        { id: 'feedback', label: 'Help Us Improve', icon: MessageSquareQuote, roles: ['user'] },
-        { id: 'reviews', label: 'Reviews', icon: MessageSquareQuote, roles: ['doctor', 'admin'] },
-        { id: 'profile', label: 'My Profile', icon: UserCircle, roles: ['user', 'doctor', 'admin'] },
-        { id: 'settings', label: 'Settings', icon: Settings, roles: ['user', 'doctor', 'admin'] },
+        { id: 'history', label: 'Past Tests', icon: History, roles: ['user'] },
+        { id: 'my-plans', label: 'Doctor Plans', icon: ClipboardList, roles: ['user'] },
+        { id: 'feedback', label: 'Send Feedback', icon: MessageSquareQuote, roles: ['user'] },
     ];
 
     const filteredMenu = menuItems.filter(item => item.roles.includes(user.role));

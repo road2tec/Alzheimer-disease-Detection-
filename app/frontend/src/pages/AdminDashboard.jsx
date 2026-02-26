@@ -75,7 +75,7 @@ const AdminDashboard = () => {
     }, []);
 
     useEffect(() => {
-        if (activeTab === 'reviews') {
+        if (activeTab === 'admin-reviews') {
             const getReviews = async () => {
                 try {
                     // Let's use doctor_routes or admin_routes to get reviews?
@@ -417,7 +417,7 @@ const AdminDashboard = () => {
                     </div>
                 )}
 
-                {activeTab === 'reviews' && (
+                {activeTab === 'admin-reviews' && (
                     <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden animate-in fade-in duration-500 min-h-[60vh] p-8">
                         <div className="mb-10">
                             <h3 className="font-bold text-slate-900 text-2xl tracking-tight leading-none mb-2">Review Moderation</h3>
