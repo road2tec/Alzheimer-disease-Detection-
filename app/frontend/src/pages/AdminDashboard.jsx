@@ -78,9 +78,7 @@ const AdminDashboard = () => {
         if (activeTab === 'admin-reviews') {
             const getReviews = async () => {
                 try {
-                    // Let's use doctor_routes or admin_routes to get reviews?
-                    // I'll stick to a mock or generic feedback for now if missing
-                    const res = await reviewApi.getDoctorReviews('all'); // I should implement an 'all' endpoint
+                    const res = await feedbackApi.getAll();
                     setReviews(res.data);
                 } catch (e) { }
             };
@@ -420,37 +418,31 @@ const AdminDashboard = () => {
                 {activeTab === 'admin-reviews' && (
                     <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden animate-in fade-in duration-500 min-h-[60vh] p-8">
                         <div className="mb-10">
-                            <h3 className="font-bold text-slate-900 text-2xl tracking-tight leading-none mb-2">Review Moderation</h3>
-                            <p className="text-slate-500 font-medium">Monitor and manage doctor reviews from patients.</p>
+                            <h3 className="font-bold text-slate-900 text-2xl tracking-tight leading-none mb-2">User Feedback</h3>
+                            <p className="text-slate-500 font-medium">Monitor and manage platform feedback from patients.</p>
                         </div>
 
                         <div className="space-y-6">
                             {reviews.length === 0 ? (
-                                <div className="text-center py-20 text-slate-400">No reviews to moderate.</div>
+                                <div className="text-center py-20 text-slate-400">No feedback to moderate.</div>
                             ) : reviews.map((r) => (
                                 <div key={r._id} className="p-8 bg-slate-50 rounded-3xl border border-slate-100 flex gap-6 group hover:bg-white hover:border-indigo-100 transition-all">
                                     <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-indigo-600 font-bold shadow-sm border border-slate-100">
-                                        {r.userName?.charAt(0)}
+                                        {r.userName?.charAt(0) || 'U'}
                                     </div>
                                     <div className="flex-grow">
                                         <div className="flex justify-between items-start mb-2">
                                             <div>
-                                                <h4 className="font-bold text-slate-900">{r.userName} <span className="text-[10px] text-slate-400 font-medium uppercase tracking-[0.2em] ml-2">to</span> {r.doctorName || 'Specialist'}</h4>
+                                                <h4 className="font-bold text-slate-900">{r.userName || 'Anonymous'} <span className="text-[10px] text-slate-400 font-medium uppercase tracking-[0.2em] ml-2">{r.userEmail || ''}</span></h4>
                                                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{new Date(r.createdAt).toLocaleDateString()}</span>
                                             </div>
                                             <div className="flex items-center gap-4">
                                                 <div className="flex items-center gap-1 text-amber-400 bg-white px-2 py-1 rounded-lg border border-slate-100 text-xs font-bold">
                                                     <Star className="w-3 h-3 fill-current" /> {r.rating}
                                                 </div>
-                                                <button
-                                                    onClick={() => deleteReview(r._id)}
-                                                    className="p-2 bg-red-50 text-red-500 rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                </button>
                                             </div>
                                         </div>
-                                        <p className="text-slate-500 font-medium text-sm leading-relaxed">"{r.comment}"</p>
+                                        <p className="text-slate-500 font-medium text-sm leading-relaxed">"{r.content || r.comment}"</p>
                                     </div>
                                 </div>
                             ))}

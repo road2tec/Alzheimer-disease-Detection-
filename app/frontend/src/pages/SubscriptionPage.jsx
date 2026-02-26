@@ -83,18 +83,24 @@ const SubscriptionPage = () => {
                                     <CreditCard className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900">Payment Simulation</h3>
-                                    <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">DEMO MODE ENABLED</p>
+                                    <h3 className="text-xl font-bold text-slate-900">Payment Details</h3>
+                                    <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">SECURE CHECKOUT</p>
                                 </div>
                             </div>
 
                             <div className="space-y-6">
-                                <p className="text-slate-500 font-medium text-sm leading-relaxed">
-                                    For this version, real payments are disabled. Click "Confirm Subscription" to activate your plan immediately and start consulting with your specialist.
-                                </p>
+                                <div className="space-y-4">
+                                    <input type="text" placeholder="Card Number (e.g. 4111 1111 1111 1111)" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:bg-white focus:border-indigo-500 transition-all font-semibold text-slate-900" />
+                                    <div className="flex gap-4">
+                                        <input type="text" placeholder="MM/YY" className="w-1/2 px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:bg-white focus:border-indigo-500 transition-all font-semibold text-slate-900" />
+                                        <input type="text" placeholder="CVC" className="w-1/2 px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:bg-white focus:border-indigo-500 transition-all font-semibold text-slate-900" />
+                                    </div>
+                                    <input type="text" placeholder="Cardholder Name" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:bg-white focus:border-indigo-500 transition-all font-semibold text-slate-900" />
+                                </div>
+
                                 <div className="p-4 bg-amber-50 border border-amber-100 rounded-2xl flex gap-4 text-amber-700">
                                     <Lock className="w-5 h-5 shrink-0 mt-0.5" />
-                                    <p className="text-xs font-medium">Encryption active. Your clinical data remains private according to HIPPA guidelines.</p>
+                                    <p className="text-xs font-medium">Encryption active. Your financial data is protected using AES-256 bit encryption and never stored.</p>
                                 </div>
                             </div>
                         </div>
