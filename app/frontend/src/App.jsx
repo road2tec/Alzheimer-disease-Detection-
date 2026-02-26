@@ -22,12 +22,16 @@ function App() {
     const { loading } = useAuth();
     const location = useLocation();
 
+    // Do not show the top site navbar on the application dashboards
+    const hideNavbarRoutes = ['/dashboard', '/admin', '/doctor'];
+    const shouldHideNavbar = hideNavbarRoutes.some(route => location.pathname.startsWith(route));
+
     if (loading) return <div className="h-screen flex items-center justify-center text-medical-600 font-bold">Initializing...</div>;
 
     return (
         <div className="flex flex-col min-h-screen bg-white">
-            <Navbar />
-            <main className={`flex-grow ${location.pathname !== '/dashboard' ? 'pt-24' : ''}`}>
+            {!shouldHideNavbar && <Navbar />}
+            <main className={`flex-grow ${!shouldHideNavbar ? 'pt-24' : ''}`}>
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/login" element={<Login />} />
