@@ -13,9 +13,10 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
         const name = localStorage.getItem('name');
+        const _id = localStorage.getItem('_id');
 
         if (token && role) {
-            setUser({ token, role, name });
+            setUser({ token, role, name, _id });
         }
         setLoading(false);
     }, []);
@@ -23,11 +24,12 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const res = await authApi.login({ email, password });
-            const userData = { token: res.data.token, role: res.data.role, name: res.data.name };
+            const userData = { token: res.data.token, role: res.data.role, name: res.data.name, _id: res.data._id };
 
             localStorage.setItem('token', userData.token);
             localStorage.setItem('role', userData.role);
             localStorage.setItem('name', userData.name);
+            if (userData._id) localStorage.setItem('_id', userData._id);
 
             setUser(userData);
             return userData;
@@ -39,11 +41,12 @@ export const AuthProvider = ({ children }) => {
     const signup = async (name, email, password, role) => {
         try {
             const res = await authApi.signup({ name, email, password, role });
-            const userData = { token: res.data.token, role: res.data.role, name: res.data.name || name };
+            const userData = { token: res.data.token, role: res.data.role, name: res.data.name || name, _id: res.data._id };
 
             localStorage.setItem('token', userData.token);
             localStorage.setItem('role', userData.role);
             localStorage.setItem('name', userData.name);
+            if (userData._id) localStorage.setItem('_id', userData._id);
 
             setUser(userData);
             return userData;

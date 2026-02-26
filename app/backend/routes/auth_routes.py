@@ -27,7 +27,7 @@ def signup():
     }).inserted_id
 
     token = generate_token(user_id, role)
-    return jsonify({"message": "User created successfully", "token": token, "role": role}), 201
+    return jsonify({"message": "User created successfully", "token": token, "role": role, "name": name, "_id": str(user_id)}), 201
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
@@ -46,7 +46,8 @@ def login():
             return jsonify({
                 "token": token, 
                 "role": user['role'],
-                "name": user['name']
+                "name": user['name'],
+                "_id": str(user['_id'])
             }), 200
         
         # Check default admin credentials from .env
@@ -58,7 +59,8 @@ def login():
             return jsonify({
                 "token": token,
                 "role": "admin",
-                "name": "System Administrator"
+                "name": "System Administrator",
+                "_id": "admin_bypass"
             }), 200
         
         return jsonify({"error": "Invalid credentials"}), 401
