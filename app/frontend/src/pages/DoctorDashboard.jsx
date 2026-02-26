@@ -1,5 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { planApi, reviewApi } from '../services/api';
+import { planApi, reviewApi, doctorApi } from '../services/api';
+import { motion } from 'framer-motion';
 import {
     Users,
     Activity,
