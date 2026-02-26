@@ -1,69 +1,75 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
+    LayoutDashboard,
     Microscope,
     History,
     Settings,
     LogOut,
-    UserCircle
+    UserCircle,
+    Users,
+    Activity,
+    ShieldCheck,
+    MessageSquareQuote,
+    ClipboardList,
+    Sparkles
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import OrbSymbol from './OrbSymbol';
 
 const Sidebar = ({ activeTab, onTabChange }) => {
     const { logout, user } = useAuth();
+    const navigate = useNavigate();
 
     const menuItems = [
-        { id: 'analyze', label: 'Workspace', icon: Microscope, roles: ['user', 'admin'] },
-        { id: 'patients', label: 'Patients', icon: Users, roles: ['doctor', 'admin'] },
-        { id: 'history', label: 'Records', icon: History, roles: ['user', 'doctor', 'admin'] },
-        { id: 'plans', label: 'Care Plans', icon: Activity, roles: ['user'] },
-        { id: 'feedback', label: 'Feedback', icon: LogOut, roles: ['user'] }, // Reusing LogOut icon temporarily if needed or find suitable
-        { id: 'profile', label: 'Profile', icon: UserCircle, roles: ['user', 'doctor', 'admin'] },
+        { id: 'insights', label: 'Overview', icon: LayoutDashboard, roles: ['admin'] },
+        { id: 'analyze', label: 'Check Brain', icon: Microscope, roles: ['user'] },
+        { id: 'admin-hub', label: 'Admin Hub', icon: ShieldCheck, roles: ['admin'] },
+        { id: 'patients', label: 'Patients', icon: Users, roles: ['doctor'] },
+        { id: 'history', label: 'Past Tests', icon: History, roles: ['user', 'doctor', 'admin'] },
+        { id: 'plans', label: 'Care Plans', icon: ClipboardList, roles: ['user', 'doctor'] },
+        { id: 'feedback', label: 'Help Us Improve', icon: MessageSquareQuote, roles: ['user'] },
+        { id: 'reviews', label: 'Reviews', icon: MessageSquareQuote, roles: ['doctor', 'admin'] },
+        { id: 'profile', label: 'My Profile', icon: UserCircle, roles: ['user', 'doctor', 'admin'] },
         { id: 'settings', label: 'Settings', icon: Settings, roles: ['user', 'doctor', 'admin'] },
     ];
 
     const filteredMenu = menuItems.filter(item => item.roles.includes(user.role));
 
     return (
-        <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-72 bg-slate-950 shadow-[4px_0_50px_rgba(0,0,0,0.5)] border-r border-white/5 flex-col py-12 z-50 overflow-hidden">
-            {/* Background Accent */}
-            <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-medical-500/10 to-transparent pointer-events-none" />
-
+        <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-72 bg-white border-r border-slate-200 flex-col py-10 z-50">
             {/* Logo area */}
-            <div className="px-10 mb-16 relative z-10">
-                <Link to="/" className="flex items-center gap-3 group">
-                    <div className="relative flex items-center justify-center w-10 h-10">
-                        <div className="absolute inset-0 bg-medical-500/30 blur-xl rounded-full scale-150 group-hover:bg-medical-500/50 transition-all duration-700 animate-pulse" />
-                        <OrbSymbol size="sm" className="relative scale-110 group-hover:rotate-12 transition-transform duration-700" />
+            <div className="px-8 mb-12">
+                <Link to="/" className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+                        <OrbSymbol size="xs" color="white" />
                     </div>
-                    <div className="flex flex-col -space-y-1">
-                        <span className="text-xl font-black text-white tracking-tighter italic">HEALTH<span className="text-medical-500 italic">AI</span></span>
-                        <span className="text-[7px] font-black text-slate-500 uppercase tracking-[0.3em] leading-none">Intelligence Hub</span>
+                    <div className="flex flex-col">
+                        <span className="text-xl font-bold text-slate-900 tracking-tight leading-none">HealthAI</span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Medical Platform</span>
                     </div>
                 </Link>
             </div>
 
             {/* Navigation items */}
-            <nav className="flex-grow flex flex-col gap-2 px-4 relative z-10 overflow-y-auto max-h-[60vh]">
+            <nav className="flex-grow flex flex-col gap-1.5 px-4 overflow-y-auto">
                 {filteredMenu.map((item) => (
                     <button
                         key={item.id}
                         onClick={() => onTabChange(item.id)}
-                        className={`relative w-full flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 group ${activeTab === item.id
-                            ? 'bg-medical-600 text-white shadow-lg shadow-medical-600/30'
-                            : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
+                        className={`relative w-full flex items-center gap-3.5 px-5 py-3.5 rounded-2xl transition-all group ${activeTab === item.id
+                            ? 'bg-indigo-50 text-indigo-600'
+                            : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
                             }`}
                     >
-                        <item.icon className={`w-5 h-5 transition-colors ${activeTab === item.id ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`} />
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em]">{item.label}</span>
+                        <item.icon className={`w-5 h-5 transition-colors ${activeTab === item.id ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-600'}`} />
+                        <span className="text-sm font-semibold">{item.label}</span>
 
-                        {/* Active Indicator Glow */}
                         {activeTab === item.id && (
                             <motion.div
                                 layoutId="activeIndicator"
-                                className="absolute left-0 w-1 h-6 bg-white rounded-r-full shadow-[0_0_15px_rgba(255,255,255,0.8)]"
+                                className="absolute right-3 w-1.5 h-1.5 bg-indigo-600 rounded-full shadow-[0_0_10px_rgba(79,70,229,0.5)]"
                             />
                         )}
                     </button>
@@ -71,19 +77,14 @@ const Sidebar = ({ activeTab, onTabChange }) => {
             </nav>
 
             {/* Bottom Actions */}
-            <div className="mt-auto px-6 pb-4 relative z-10">
-                <div className="h-px bg-white/10 mx-4 mb-4" />
+            <div className="px-4 pb-6">
+                <div className="h-px bg-slate-100 mb-6 mx-4" />
                 <button
                     onClick={logout}
-                    className="w-full flex items-center gap-4 px-6 py-4 rounded-[2rem] text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-all duration-500 group border border-transparent hover:border-red-400/20"
+                    className="w-full flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-red-600 hover:bg-red-50 transition-all group"
                 >
-                    <div className="p-2.5 rounded-full bg-white/5 group-hover:bg-red-400/20 transition-all shadow-inner">
-                        <LogOut className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                    </div>
-                    <div className="flex flex-col items-start leading-[1.1]">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] group-hover:text-red-400 transition-colors">Sign Out</span>
-                        <span className="text-[6px] font-black text-slate-600 uppercase tracking-widest group-hover:text-red-400/60 transition-colors">Terminate Session</span>
-                    </div>
+                    <LogOut className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+                    <span className="text-sm font-semibold text-slate-600 group-hover:text-red-600 transition-colors">Log Out</span>
                 </button>
             </div>
         </aside>

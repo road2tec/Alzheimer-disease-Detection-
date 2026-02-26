@@ -12,6 +12,18 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            console.error("Session expired or unauthorized request. Clearing session...");
+            localStorage.clear();
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
+
 export const authApi = {
     login: (credentials) => api.post('/auth/login', credentials),
     signup: (data) => api.post('/auth/signup', data),
@@ -29,10 +41,12 @@ export const adminApi = {
     getUsers: () => api.get('/admin/users'),
     deleteUser: (id) => api.delete(`/admin/users/${id}`),
     updateRole: (id, role) => api.post(`/admin/users/${id}/role`, { role }),
+    createDoctor: (data) => api.post('/admin/doctors', data),
 };
 
 export const doctorApi = {
     getPatients: () => api.get('/doctor/patients'),
+    getSubscribedPatients: () => api.get('/subscriptions/doctor/patients'),
 };
 
 export const feedbackApi = {
@@ -41,7 +55,20 @@ export const feedbackApi = {
 };
 
 export const planApi = {
-    getPlans: () => api.get('/plans/'),
+    getPlans: (doctorId) => api.get(`/plans/${doctorId ? `?doctorId=${doctorId}` : ''}`),
+    createPlan: (data) => api.post('/plans/', data),
+    deletePlan: (id) => api.delete(`/plans/${id}`),
+};
+
+export const subscriptionApi = {
+    subscribe: (data) => api.post('/subscriptions/', data),
+    getMySubscriptions: () => api.get('/subscriptions/mine'),
+};
+
+export const reviewApi = {
+    addReview: (data) => api.post('/reviews/', data),
+    getDoctorReviews: (doctorId) => api.get(`/reviews/doctor/${doctorId}`),
+    deleteReview: (id) => api.delete(`/reviews/${id}`),
 };
 
 export default api;

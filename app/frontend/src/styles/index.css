@@ -1,27 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-    --color-medical-50: #f8f7ff;
-    --color-medical-100: #f0eeff;
-    --color-medical-200: #e0dbff;
-    --color-medical-300: #c1b8ff;
-    --color-medical-400: #a295ff;
-    --color-medical-500: #8372ff;
-    --color-medical-600: #7a3fff;
-    --color-medical-700: #6b2cf5;
-    --color-medical-800: #5a23cf;
-    --color-medical-900: #4b1da9;
-    --color-medical-950: #2d1265;
+    --color-medical-50: #f5f8ff;
+    --color-medical-100: #ebf1ff;
+    --color-medical-200: #d6e2ff;
+    --color-medical-300: #adc5ff;
+    --color-medical-400: #84a8ff;
+    --color-medical-500: #5c8bff;
+    --color-medical-600: #496de6;
+    --color-medical-700: #3752b3;
+    --color-medical-800: #253780;
+    --color-medical-900: #121b4d;
+    --color-medical-950: #06091a;
 }
 
 :root {
-    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-    background-color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    background-color: #f8fafc;
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
+    background-color: #f8fafc;
     color: #1e293b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern Utilities */
+.medical-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.medical-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.medical-button-primary {
+    background-color: #4f46e5;
+    color: #ffffff;
+    font-weight: 700;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border-radius: 1rem;
+    transition-property: all;
+}
+
+.medical-button-primary:hover {
+    background-color: #4338ca;
+}
+
+.medical-button-primary:active {
+    scale: 0.95;
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4f46e5;
+}
+
+/* Glassmorphism Updated for Light Mode */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 @media print {

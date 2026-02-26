@@ -9,8 +9,13 @@ doctor_bp = Blueprint('doctor', __name__)
 @doctor_required
 def get_all_patient_predictions(current_user_id, user_role):
     try:
-        # Get all predictions with user info
+        # Step 1: Find all user IDs who have a subscription to this doctor
+        from db import subscriptions_collection
+        subscribed_users = subscriptions_collection.distinct("userId", {"doctorId": ObjectId(current_user_id), "status": "active"})
+        
+        # Step 2: Get predictions for these users
         pipeline = [
+            {"$match": {"userId": {"$in": subscribed_users}}},
             {
                 "$lookup": {
                     "from": "users",

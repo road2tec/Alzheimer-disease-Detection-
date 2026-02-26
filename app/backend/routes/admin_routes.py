@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
-from auth import admin_required
+from flask import Blueprint, jsonify, request
+from auth import admin_required, hash_password
 from db import users_collection, predictions_collection
+from bson import ObjectId
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -94,3 +95,33 @@ def update_user_role(current_user_id, user_role, user_id):
         return jsonify({"error": "Update failed"}), 400
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+@admin_bp.route('/doctors', methods=['POST'])
+@admin_required
+def create_doctor(current_user_id, user_role):
+    data = request.json
+    name = data.get('name')
+    email = data.get('email')
+    password = data.get('password')
+
+    if not all([name, email, password]):
+        return jsonify({"error": "Missing required fields"}), 400
+
+    if users_collection.find_one({"email": email}):
+        return jsonify({"error": "Email already registered"}), 400
+
+    hashed_pw = hash_password(password)
+    specialization = data.get('specialization', 'Neurologist')
+    experience = data.get('experience', '5+ Years')
+    
+    user_id = users_collection.insert_one({
+        "name": name,
+        "email": email,
+        "password": hashed_pw,
+        "role": 'doctor',
+        "specialization": specialization,
+        "experience": experience,
+        "rating": 0.0,
+        "createdAt": datetime.utcnow()
+    }).inserted_id
+
+    return jsonify({"message": "Doctor created successfully", "id": str(user_id)}), 201

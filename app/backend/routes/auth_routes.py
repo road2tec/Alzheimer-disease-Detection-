@@ -31,32 +31,40 @@ def signup():
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
+    try:
+        print("DEBUG: Login request received")
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
+        print(f"DEBUG: Attempting login for email: {email}")
 
-    user = users_collection.find_one({"email": email})
-    
-    # Check regular users first
-    if user and check_password(password, user['password']):
-        token = generate_token(user['_id'], user['role'])
-        return jsonify({
-            "token": token, 
-            "role": user['role'],
-            "name": user['name']
-        }), 200
-    
-    # Check default admin credentials from .env
-    admin_email = os.getenv("ADMIN_EMAIL")
-    admin_password = os.getenv("ADMIN_PASSWORD")
-    
-    if email == admin_email and password == admin_password:
-        # Create a mock ID for admin or use a fixed one
-        token = generate_token("admin_bypass", "admin")
-        return jsonify({
-            "token": token,
-            "role": "admin",
-            "name": "System Administrator"
-        }), 200
-    
-    return jsonify({"error": "Invalid credentials"}), 401
+        user = users_collection.find_one({"email": email})
+        
+        # Check regular users first
+        if user and check_password(password, user['password']):
+            token = generate_token(user['_id'], user['role'])
+            return jsonify({
+                "token": token, 
+                "role": user['role'],
+                "name": user['name']
+            }), 200
+        
+        # Check default admin credentials from .env
+        admin_email = os.getenv("ADMIN_EMAIL")
+        admin_password = os.getenv("ADMIN_PASSWORD")
+        
+        if email == admin_email and password == admin_password:
+            token = generate_token("admin_bypass", "admin")
+            return jsonify({
+                "token": token,
+                "role": "admin",
+                "name": "System Administrator"
+            }), 200
+        
+        return jsonify({"error": "Invalid credentials"}), 401
+    except Exception as e:
+        import traceback
+        error_details = traceback.format_exc()
+        with open("login_500_error.txt", "a") as f:
+            f.write(f"LOGIN ERROR:\n{error_details}\n---\n")
+        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500

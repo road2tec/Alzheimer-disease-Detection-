@@ -11,6 +11,10 @@ import WhyUs from './pages/WhyUs'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import DoctorDashboard from './pages/DoctorDashboard'
+import DoctorList from './pages/DoctorList'
+import DoctorPlans from './pages/DoctorPlans'
+import SubscriptionPage from './pages/SubscriptionPage'
+import ReviewPage from './pages/ReviewPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import { useAuth } from './context/AuthContext'
 
@@ -34,13 +38,37 @@ function App() {
                     <Route path="/why-us" element={<WhyUs />} />
 
                     <Route path="/dashboard" element={
-                        <ProtectedRoute allowedRoles={['user', 'admin', 'doctor']}>
+                        <ProtectedRoute allowedRoles={['user']}>
                             <UserDashboard />
                         </ProtectedRoute>
                     } />
 
+                    <Route path="/doctors" element={
+                        <ProtectedRoute allowedRoles={['user']}>
+                            <DoctorList />
+                        </ProtectedRoute>
+                    } />
+
+                    <Route path="/plans/:doctorId" element={
+                        <ProtectedRoute allowedRoles={['user']}>
+                            <DoctorPlans />
+                        </ProtectedRoute>
+                    } />
+
+                    <Route path="/subscribe/:doctorId/:planId" element={
+                        <ProtectedRoute allowedRoles={['user']}>
+                            <SubscriptionPage />
+                        </ProtectedRoute>
+                    } />
+
+                    <Route path="/review/:doctorId" element={
+                        <ProtectedRoute allowedRoles={['user']}>
+                            <ReviewPage />
+                        </ProtectedRoute>
+                    } />
+
                     <Route path="/doctor" element={
-                        <ProtectedRoute allowedRoles={['doctor', 'admin']}>
+                        <ProtectedRoute allowedRoles={['doctor']}>
                             <DoctorDashboard />
                         </ProtectedRoute>
                     } />

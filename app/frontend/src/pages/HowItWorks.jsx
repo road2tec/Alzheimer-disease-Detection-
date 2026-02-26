@@ -33,7 +33,7 @@ const HowItWorks = () => {
                         <Network className="w-3 h-3" /> System Steps
                     </motion.div>
                     <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-tight">
-                        HOW IT <span className="text-medical-500 italic">WORKS</span>
+                        HOW IT <span className="text-medical-500">WORKS</span>
                     </h1>
                     <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
                         A simple step-by-step look at how we check your brain scan and info.
@@ -47,43 +47,43 @@ const HowItWorks = () => {
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                         <StepCard
                             num="01"
-                            title="Image Cleanup"
-                            desc="We take the brain scan and make it clear so the AI can see it better."
+                            title="Cleaning the Photo"
+                            desc="We take your brain photo and make it clear so the AI can see it better."
                             icon={Microscope}
                             theme="bg-slate-900"
                         />
                         <StepCard
                             num="02"
-                            title="AI Analysis"
-                            desc="Our AI looks at small parts of the scan to find any signs of trouble."
+                            title="AI Checking"
+                            desc="Our smart AI looks at small parts of the photo to find any signs of trouble."
                             icon={Binary}
                             theme="bg-medical-600"
                         />
                         <StepCard
                             num="03"
-                            title="Patient Details"
-                            desc="We add simple info like age and memory test scores to get a full picture."
+                            title="Your Health Info"
+                            desc="We add simple info like age and memory scores to get a full picture of your health."
                             icon={Database}
                             theme="bg-slate-950"
                         />
                         <StepCard
                             num="04"
-                            title="Joining Info"
-                            desc="The AI joins the scan results and patient details together to give an answer."
+                            title="Putting it Together"
+                            desc="The AI joins the photo results and your health info together to give a clear answer."
                             icon={Layers}
                             theme="bg-medical-500"
                         />
                         <StepCard
                             num="05"
-                            title="Showing Proof"
-                            desc="We show dots on the brain map so doctors know what the AI saw."
+                            title="Showing the Marks"
+                            desc="We show marks on the brain map so you and the doctor can see what the AI found."
                             icon={Cpu}
                             theme="bg-amber-500"
                         />
                         <StepCard
                             num="06"
                             title="Report Ready"
-                            desc="The final answer is kept safe and sent to you right away."
+                            desc="Your final report is kept safe and shown to you right away."
                             icon={Workflow}
                             theme="bg-emerald-600"
                         />

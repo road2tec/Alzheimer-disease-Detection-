@@ -46,7 +46,7 @@ Ensure you have **MongoDB** installed and running on your local machine.
 cd app/backend
 pip install -r requirements.txt
 cp .env.example .env  # Configure your secrets
-python app.py
+python app.py  # This will automatically use the Waitress WSGI server on Windows
 ```
 
 ### 3. Frontend Workspace

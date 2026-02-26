@@ -2,11 +2,12 @@ from flask import Blueprint, request, jsonify
 import os
 import torch
 from auth import token_required
-from db import predictions_collection
+from db import predictions_collection, users_collection
 from model_loader import load_model
 from preprocess import preprocess_image, preprocess_clinical
 from grad_cam import generate_attention_map
 from bson import ObjectId
+from datetime import datetime
 
 predict_bp = Blueprint('predict', __name__)
 
@@ -31,8 +32,11 @@ def predict(current_user_id, user_role):
     cdr = request.form.get('cdr')
     
     try:
+        # Create unique ID for this prediction
+        prediction_id = ObjectId()
+        
         # Save temp file
-        temp_path = os.path.join(GRAD_CAM_FOLDER, f"temp_{current_user_id}.png")
+        temp_path = os.path.join(GRAD_CAM_FOLDER, f"temp_{prediction_id}.png")
         image_file.save(temp_path)
         
         # Preprocess
@@ -49,11 +53,28 @@ def predict(current_user_id, user_role):
         labels = ['CN', 'MCI', 'AD']
         prediction = labels[predicted_idx.item()]
         
-        # Explainability
-        grad_cam_filename = generate_attention_map(model, img_tensor, GRAD_CAM_FOLDER)
+        # Explainability - Unique filename
+        grad_cam_filename = f"gradcam_{prediction_id}.png"
+        generate_attention_map(model, img_tensor, GRAD_CAM_FOLDER, filename=grad_cam_filename)
+        
+        # Clean up temp file
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+            
+        # Suggested Doctors
+        # Logic: If AD/MCI, suggest Neurologists. If CN, suggest Brain Health Specialists.
+        specialization = "Neurologist" if prediction in ['AD', 'MCI'] else "Brain Health Specialist"
+        doctors = list(users_collection.find(
+            {"role": "doctor", "specialization": specialization},
+            {"password": 0}
+        ).sort("rating", -1).limit(3))
+        
+        for doc in doctors:
+            doc['_id'] = str(doc['_id'])
         
         # Save to MongoDB
         prediction_entry = {
+            "_id": prediction_id,
             "userId": ObjectId(current_user_id),
             "age": age,
             "gender": gender,
@@ -62,14 +83,15 @@ def predict(current_user_id, user_role):
             "prediction": prediction,
             "confidence": round(confidence.item(), 4),
             "gradCamImage": grad_cam_filename,
-            "createdAt": ObjectId().generation_time
+            "createdAt": datetime.utcnow()
         }
         predictions_collection.insert_one(prediction_entry)
         
         return jsonify({
             "prediction": prediction,
             "confidence": round(confidence.item(), 4),
-            "grad_cam_image": grad_cam_filename
+            "grad_cam_image": grad_cam_filename,
+            "suggestedDoctors": doctors
         })
         
     except Exception as e:
@@ -80,7 +102,6 @@ def predict(current_user_id, user_role):
 def get_history(current_user_id, user_role):
     try:
         history = list(predictions_collection.find({"userId": ObjectId(current_user_id)}).sort("createdAt", -1))
-        # Convert ObjectId to string for JSON serialization
         for entry in history:
             entry['_id'] = str(entry['_id'])
             entry['userId'] = str(entry['userId'])

@@ -7,34 +7,34 @@ const Card = ({ title, desc, icon: Icon, theme }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="p-10 bg-white rounded-[3rem] border border-slate-100 shadow-sm relative overflow-hidden group"
+        className="p-10 bg-white rounded-[3rem] border border-slate-100 shadow-sm relative overflow-hidden group hover:shadow-xl transition-all"
     >
         <div className={`w-14 h-14 ${theme} rounded-2xl flex items-center justify-center mb-8 relative z-10 shadow-lg group-hover:scale-110 transition-transform`}>
             <Icon className="w-7 h-7 text-white" />
         </div>
-        <h3 className="text-2xl font-black mb-4 tracking-tight text-slate-900">{title}</h3>
+        <h3 className="text-2xl font-bold mb-4 tracking-tight text-slate-900">{title}</h3>
         <p className="text-slate-500 leading-relaxed font-medium">{desc}</p>
     </motion.div>
 );
 
 const WhyUs = () => {
     return (
-        <div className="bg-white min-h-screen pb-24">
-            <section className="pt-32 pb-48 px-6 bg-slate-950 text-white relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-medical-950/40"></div>
+        <div className="bg-white min-h-screen pb-24 font-outfit">
+            <section className="pt-32 pb-48 px-6 bg-slate-50 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-50 to-indigo-50/40"></div>
                 <div className="container mx-auto text-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-6 py-2 mb-8 rounded-full bg-medical-600 font-black text-[10px] uppercase tracking-[0.4em]"
+                        className="inline-flex items-center gap-2 px-6 py-2 mb-8 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 font-bold text-[10px] uppercase tracking-widest"
                     >
-                        <Sparkles className="w-3 h-3" /> A Better Choice
+                        <Sparkles className="w-3 h-3" /> A BETTER CHOICE
                     </motion.div>
-                    <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 leading-none">
-                        WHY <span className="text-medical-400 italic">US?</span>
+                    <h1 className="text-5xl md:text-8xl font-bold tracking-tight mb-8 leading-none text-slate-900">
+                        Why Choose <span className="text-indigo-600">Us?</span>
                     </h1>
-                    <p className="text-slate-400 text-lg md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
-                        We use the best AI and patient information to help you get the right results fast.
+                    <p className="text-slate-500 text-lg md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
+                        We use simple AI and your medical history to help you get the right results fast.
                     </p>
                 </div>
             </section>
@@ -45,13 +45,13 @@ const WhyUs = () => {
                         title="Smart Mix"
                         desc="We look at both pictures and patient info together. This helps us get much more accurate results than standard tools."
                         icon={Binary}
-                        theme="bg-medical-600"
+                        theme="bg-indigo-600"
                     />
                     <Card
                         title="Very Fast"
                         desc="Built to work right away. You get results in a few seconds, so you don't have to wait for days."
                         icon={Zap}
-                        theme="bg-slate-950"
+                        theme="bg-slate-900"
                     />
                     <Card
                         title="Safe and Private"
@@ -66,21 +66,21 @@ const WhyUs = () => {
                 <div className="container mx-auto">
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div>
-                            <span className="text-medical-600 font-black uppercase text-[10px] tracking-[0.4em] mb-4 inline-block">The Comparison</span>
-                            <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-8 leading-[0.9]">
-                                Better Than <br /><span className="text-slate-200">The Rest.</span>
+                            <span className="text-indigo-600 font-bold uppercase text-[10px] tracking-widest mb-4 inline-block">The Comparison</span>
+                            <h2 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight mb-8 leading-[0.9]">
+                                Better Than <br /><span className="text-slate-300">The Rest.</span>
                             </h2>
                             <div className="space-y-8">
                                 {[
                                     { title: "Standard AI", status: "Hard to Know", desc: "Most AI won't tell you how it got the answer.", color: "text-slate-400" },
-                                    { title: "HealthAI", status: "Easy to See", desc: "We show you exactly what the AI saw on the brain scan.", color: "text-medical-600" }
+                                    { title: "Health AI", status: "Easy to See", desc: "We show you exactly what the AI saw on the brain scan.", color: "text-indigo-600" }
                                 ].map((item, i) => (
-                                    <div key={i} className="flex gap-6 items-start">
+                                    <div key={i} className="flex gap-6 items-start p-6 bg-slate-50 rounded-3xl border border-slate-100">
                                         <div className={`h-8 w-1 flex-shrink-0 bg-current mt-2 ${item.color}`}></div>
                                         <div>
                                             <div className="flex items-center gap-3 mb-2">
-                                                <h4 className="font-black text-xl text-slate-900">{item.title}</h4>
-                                                <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-slate-50 border border-slate-100 ${item.color}`}>{item.status}</span>
+                                                <h4 className="font-bold text-xl text-slate-900">{item.title}</h4>
+                                                <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-white border border-slate-100 ${item.color}`}>{item.status}</span>
                                             </div>
                                             <p className="text-slate-500 font-medium text-sm leading-relaxed">{item.desc}</p>
                                         </div>
@@ -92,26 +92,10 @@ const WhyUs = () => {
                             <motion.div
                                 animate={{ scale: [1, 1.1, 1] }}
                                 transition={{ duration: 4, repeat: Infinity }}
-                                className="w-64 h-64 bg-white rounded-full flex items-center justify-center shadow-3xl shadow-medical-100 relative"
+                                className="w-64 h-64 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-indigo-100 relative"
                             >
-                                <div className="relative w-32 h-32 flex items-center justify-center">
-                                    <motion.div
-                                        animate={{ scale: [1, 1.2, 1], rotate: -360 }}
-                                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                                        className="absolute inset-0 bg-medical-500/20 rounded-full blur-2xl"
-                                    />
-                                    <motion.div
-                                        animate={{ scale: [1, 1.4, 1] }}
-                                        transition={{ duration: 4, repeat: Infinity }}
-                                        className="absolute w-16 h-16 bg-medical-600/40 rounded-full blur-xl"
-                                    />
-                                    <motion.div
-                                        animate={{ x: [-10, 10, -10] }}
-                                        transition={{ duration: 5, repeat: Infinity }}
-                                        className="absolute w-12 h-12 bg-white/60 rounded-full blur-md"
-                                    />
-                                </div>
-                                <div className="absolute inset-0 bg-medical-200 blur-3xl rounded-full opacity-20"></div>
+                                <OrbSymbol size="lg" className="scale-[2.5] text-indigo-600 opacity-80" />
+                                <div className="absolute inset-0 bg-indigo-200 blur-3xl rounded-full opacity-20"></div>
                             </motion.div>
                         </div>
                     </div>

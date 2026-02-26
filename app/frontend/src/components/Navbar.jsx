@@ -29,7 +29,7 @@ const Navbar = () => {
                             <OrbSymbol size="sm" />
                         </div>
                         <div className="flex flex-col -space-y-1 invisible sm:visible">
-                            <span className="text-lg font-black text-slate-900 tracking-tighter">HEALTH<span className="text-medical-600 italic">AI</span></span>
+                            <span className="text-lg font-black text-slate-900 tracking-tighter">HEALTH<span className="text-medical-600">AI</span></span>
                             <div className="flex items-center gap-1">
                                 <Zap className="w-2 h-2 text-medical-500 fill-medical-500" />
                                 <span className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">Easy Brain Testing</span>

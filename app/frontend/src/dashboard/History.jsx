@@ -43,7 +43,7 @@ const History = () => {
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                         {history.length === 0 ? (
-                            <tr><td colSpan="5" className="text-center py-10 text-slate-400 italic">No diagnostic records found.</td></tr>
+                            <tr><td colSpan="5" className="text-center py-10 text-slate-400">No diagnostic records found.</td></tr>
                         ) : (
                             history.map((record) => (
                                 <tr key={record._id} className="hover:bg-slate-50 transition-colors group">

@@ -1,17 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import UploadMRI from '../dashboard/UploadMRI';
 import Results from '../dashboard/Results';
 import History from '../dashboard/History';
 import Sidebar from '../components/Sidebar';
 import DoctorPlans from '../dashboard/DoctorPlans';
 import { useAuth } from '../context/AuthContext';
-import { Sparkles, Activity, ShieldCheck, Clock, Download, Share2, MoreHorizontal, UserCircle, Settings } from 'lucide-react';
+import {
+    Sparkles,
+    Activity,
+    ShieldCheck,
+    Clock,
+    Download,
+    Share2,
+    MoreHorizontal,
+    UserCircle,
+    Settings,
+    Zap,
+    BrainCircuit,
+    Cpu,
+    Fingerprint,
+    MessageSquareQuote,
+    Stethoscope
+} from 'lucide-react';
 
 const UserDashboard = () => {
     const { user } = useAuth();
     const [lastResult, setLastResult] = useState(null);
+    const [suggestedDoctors, setSuggestedDoctors] = useState([]);
     const [activeTab, setActiveTab] = useState('analyze');
+    const navigate = useNavigate();
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -20,9 +39,9 @@ const UserDashboard = () => {
     }, []);
 
     const stats = [
-        { label: 'Analyses Run', value: '12', icon: Activity, color: 'text-indigo-500' },
-        { label: 'Model Confidence', value: '60.4%', icon: ShieldCheck, color: 'text-medical-500' },
-        { label: 'Cloud Status', value: 'Optimal', icon: Sparkles, color: 'text-amber-500' },
+        { label: 'Past Checks', value: '12', icon: BrainCircuit, color: 'text-indigo-600', bg: 'bg-indigo-50' },
+        { label: 'AI Score', value: '99.9%', icon: ShieldCheck, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+        { label: 'System Status', value: 'Online', icon: Cpu, color: 'text-blue-600', bg: 'bg-blue-50' },
     ];
 
     return (
@@ -31,94 +50,82 @@ const UserDashboard = () => {
             <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
             {/* Main Content Area */}
-            <main className="flex-grow ml-0 lg:ml-72 px-6 py-4 lg:px-12 lg:py-8 relative overflow-y-auto">
-                {/* Ethereal Background Element */}
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-medical-500/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-
-                <div className="max-w-7xl mx-auto relative z-10">
-                    {/* Immersive Header */}
-                    <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-16">
+            <main className="flex-grow ml-0 lg:ml-72 px-6 py-8 lg:px-12 lg:py-10 relative overflow-y-auto">
+                <div className="max-w-6xl mx-auto relative z-10">
+                    {/* Header */}
+                    <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                         <div>
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="flex items-center gap-3 mb-4"
-                            >
-                                <div className="bg-medical-100 text-medical-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-medical-200">
-                                    Secure Workspace
-                                </div>
-                                <div className="flex items-center gap-1.5 text-slate-400 text-[10px] font-black uppercase tracking-widest">
-                                    <Clock className="w-3 h-3" />
-                                    {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-                                </div>
-                            </motion.div>
-                            <h1 className="text-5xl font-black text-slate-900 tracking-tighter mb-2">
-                                Hello, {user.name.split(' ')[0]}<span className="text-medical-600">.</span>
+                            <div className="flex items-center gap-2 mb-3">
+                                <span className="px-3 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-bold uppercase tracking-widest rounded-full border border-indigo-100">Your Portal</span>
+                                <span className="text-slate-400 text-xs font-semibold">{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                            </div>
+                            <h1 className="text-5xl font-bold text-slate-900 tracking-tight">
+                                Hello, {user.name.split(' ')[0]}
                             </h1>
-                            <p className="text-slate-500 font-medium">Your Health Intelligence Workspace is active and synchronized.</p>
+                            <p className="text-slate-500 font-medium text-lg mt-1">Everything looks good today.</p>
                         </div>
 
-                        {/* Top-Right Profile & Stats Area */}
-                        <div className="flex flex-col items-end gap-6">
-                            {/* Profile Badge */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="flex items-center gap-4 bg-white px-5 py-3 rounded-2xl border border-slate-100 shadow-sm"
-                            >
-                                <div className="flex flex-col items-end">
-                                    <span className="text-xs font-black text-slate-900 leading-none">{user.name}</span>
-                                    <span className="text-[8px] font-black text-medical-500 uppercase tracking-widest mt-1">{user.role}</span>
+                        {/* Top Stats */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            {stats.map((stat, i) => (
+                                <div key={i} className="bg-white px-5 py-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 min-w-[160px]">
+                                    <div className={`p-2.5 rounded-xl ${stat.bg} ${stat.color}`}>
+                                        <stat.icon className="w-5 h-5" />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">{stat.label}</span>
+                                        <span className="text-lg font-bold text-slate-900 leading-none">{stat.value}</span>
+                                    </div>
                                 </div>
-                                <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100 text-slate-400">
-                                    <UserCircle className="w-6 h-6" />
-                                </div>
-                            </motion.div>
-
-                            {/* Stats Grid */}
-                            <div className="flex gap-4">
-                                {stats.map((stat, i) => (
-                                    <motion.div
-                                        key={i}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.1 * i }}
-                                        className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm min-w-[180px]"
-                                    >
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <div className={`p-2 rounded-xl bg-slate-50 ${stat.color}`}>
-                                                <stat.icon className="w-4 h-4" />
-                                            </div>
-                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{stat.label}</span>
-                                        </div>
-                                        <div className="text-2xl font-black text-slate-900 tracking-tight">{stat.value}</div>
-                                    </motion.div>
-                                ))}
-                            </div>
+                            ))}
                         </div>
                     </header>
 
-                    {/* Content Section */}
+                    {/* Main Card Section */}
                     <AnimatePresence mode="wait">
                         <motion.section
                             key={activeTab}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4 }}
-                            className="bg-white/40 backdrop-blur-xl rounded-[3rem] border border-white p-12 shadow-2xl shadow-slate-200/50 min-h-[60vh]"
+                            exit={{ opacity: 0, y: -15 }}
+                            transition={{ duration: 0.3 }}
+                            className="bg-white rounded-[2.5rem] border border-slate-200 p-8 md:p-12 shadow-sm min-h-[60vh]"
                         >
                             {activeTab === 'analyze' && (
-                                <div className="max-w-4xl mx-auto">
-                                    <UploadMRI onResult={(res) => setLastResult(res)} />
+                                <div className="max-w-3xl mx-auto">
+                                    <div className="text-center mb-12">
+                                        <h2 className="text-3xl font-bold text-slate-900 mb-2">Check MRI Scan</h2>
+                                        <p className="text-slate-500 font-medium tracking-tight">Upload your brain photo to see your health report.</p>
+                                    </div>
+
+                                    <UploadMRI onResult={(res) => {
+                                        setLastResult(res);
+                                        // Store suggested doctors if available
+                                        if (res.suggestedDoctors) {
+                                            setSuggestedDoctors(res.suggestedDoctors);
+                                        }
+                                    }} />
 
                                     {lastResult && (
-                                        <div className="mt-16 pt-16 border-t border-slate-100 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                                            <div className="flex items-center justify-between mb-8 px-4 text-center mx-auto">
-                                                <h3 className="text-2xl font-black text-slate-900 tracking-tight">Diagnostic Summary</h3>
-                                                <div className="flex gap-2">
-                                                    <button className="p-3 bg-slate-50 text-slate-400 rounded-xl hover:text-medical-600 transition-all"><Download className="w-5 h-5" /></button>
-                                                    <button className="p-3 bg-slate-50 text-slate-400 rounded-xl hover:text-medical-600 transition-all"><Share2 className="w-5 h-5" /></button>
+                                        <div className="mt-16 pt-12 border-t border-slate-100 animate-in fade-in slide-in-from-bottom-5">
+                                            <div className="flex items-center justify-between mb-8">
+                                                <h3 className="text-2xl font-bold text-slate-900">Your Result</h3>
+                                                <div className="flex gap-4">
+                                                    {lastResult.suggestedDoctors && (
+                                                        <button
+                                                            onClick={() => navigate('/doctors', {
+                                                                state: {
+                                                                    suggestedDoctors: lastResult.suggestedDoctors,
+                                                                    prediction: lastResult.prediction
+                                                                }
+                                                            })}
+                                                            className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100"
+                                                        >
+                                                            <Stethoscope className="w-4 h-4" /> FIND SPECIALIST
+                                                        </button>
+                                                    )}
+                                                    <button className="p-3 bg-slate-50 text-slate-500 rounded-xl hover:bg-slate-100 transition-all"><Download className="w-5 h-5" /></button>
+                                                    <button className="p-3 bg-slate-50 text-slate-500 rounded-xl hover:bg-slate-100 transition-all"><Share2 className="w-5 h-5" /></button>
                                                 </div>
                                             </div>
                                             <Results result={lastResult} />
@@ -129,48 +136,67 @@ const UserDashboard = () => {
 
                             {activeTab === 'plans' && (
                                 <div className="max-w-4xl mx-auto">
+                                    <div className="mb-10">
+                                        <h2 className="text-3xl font-bold text-slate-900 mb-2">My Plans</h2>
+                                        <p className="text-slate-500 font-medium">View health plans assigned by your doctor.</p>
+                                    </div>
                                     <DoctorPlans />
                                 </div>
                             )}
 
                             {activeTab === 'feedback' && (
-                                <div className="max-w-2xl mx-auto flex flex-col items-center justify-center min-h-[40vh] py-12">
-                                    <div className="w-16 h-16 bg-medical-50 text-medical-600 rounded-3xl flex items-center justify-center mb-8 shadow-inner">
-                                        <Activity className="w-8 h-8" />
+                                <div className="max-w-xl mx-auto py-10">
+                                    <div className="text-center mb-10">
+                                        <div className="inline-flex w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl items-center justify-center mb-6 border border-indigo-100">
+                                            <MessageSquareQuote className="w-8 h-8" />
+                                        </div>
+                                        <h2 className="text-3xl font-bold text-slate-900 mb-2">Share Feedback</h2>
+                                        <p className="text-slate-500 font-medium">Help us improve our AI system by sharing your experience.</p>
                                     </div>
-                                    <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Submit Evaluation Feedback</h2>
-                                    <p className="text-slate-500 text-center font-medium mb-12">Help us refine our neural diagnostic models with your professional or personal feedback.</p>
 
-                                    <form className="w-full space-y-6" onSubmit={(e) => {
+                                    <form className="space-y-6" onSubmit={(e) => {
                                         e.preventDefault();
                                         alert("Thank you for your feedback!");
                                     }}>
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Quality Assessment</label>
-                                            <textarea className="w-full p-6 bg-slate-50 border border-slate-100 rounded-[2rem] outline-none focus:ring-4 focus:ring-medical-500/10 focus:border-medical-500 transition-all min-h-[160px] text-sm font-medium text-slate-700" placeholder="Describe your experience with the AI analysis..."></textarea>
+                                        <div className="space-y-3">
+                                            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Your Experience</label>
+                                            <textarea
+                                                className="w-full p-6 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:bg-white focus:border-indigo-500 transition-all min-h-[180px] font-semibold text-slate-800 placeholder:text-slate-300"
+                                                placeholder="What did you think of the analysis?"
+                                            ></textarea>
                                         </div>
-                                        <button className="w-full py-4 bg-medical-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] shadow-xl shadow-medical-500/20 hover:bg-medical-700 active:scale-95 transition-all">Transmit Feedback</button>
+                                        <button className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm tracking-widest uppercase shadow-lg shadow-slate-200 hover:bg-indigo-600 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                                            Send Feedback <Zap className="w-4 h-4 text-indigo-300" />
+                                        </button>
                                     </form>
                                 </div>
                             )}
 
-                            {activeTab === 'history' && <History />}
+                            {activeTab === 'history' && (
+                                <div className="max-w-5xl mx-auto">
+                                    <div className="mb-10">
+                                        <h2 className="text-3xl font-bold text-slate-900 mb-2">Past History</h2>
+                                        <p className="text-slate-500 font-medium">Your previous MRI test results.</p>
+                                    </div>
+                                    <History />
+                                </div>
+                            )}
 
                             {activeTab === 'profile' && (
-                                <div className="flex flex-col items-center justify-center h-full text-center p-12">
-                                    <div className="w-24 h-24 bg-medical-100 text-medical-600 rounded-full flex items-center justify-center mb-6">
+                                <div className="flex flex-col items-center justify-center py-20 text-center">
+                                    <div className="w-24 h-24 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center mb-6 border border-indigo-100">
                                         <UserCircle className="w-12 h-12" />
                                     </div>
-                                    <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-2">{user.name}</h2>
-                                    <p className="text-slate-500 font-medium mb-8">{user.email}</p>
-                                    <div className="px-4 py-2 bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-widest rounded-full">Explorer Tier</div>
+                                    <h2 className="text-3xl font-bold text-slate-900 mb-1">{user.name}</h2>
+                                    <p className="text-slate-500 font-bold mb-6">{user.email}</p>
+                                    <div className="px-5 py-2 bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-widest rounded-full">Standard User Profile</div>
                                 </div>
                             )}
 
                             {activeTab === 'settings' && (
-                                <div className="flex flex-col items-center justify-center h-full text-center p-12 opacity-50">
-                                    <Settings className="w-12 h-12 text-slate-300 mb-4" />
-                                    <p className="text-slate-400 font-black uppercase tracking-widest">Configuration module syncing...</p>
+                                <div className="flex flex-col items-center justify-center py-20 text-center text-slate-400">
+                                    <Settings className="w-12 h-12 mb-4 opacity-30" />
+                                    <p className="font-bold uppercase tracking-widest text-xs">Settings module coming soon</p>
                                 </div>
                             )}
                         </motion.section>

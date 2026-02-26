@@ -33,6 +33,7 @@ def token_required(f):
             token = request.headers['Authorization'].split(" ")[1]
         
         if not token:
+            print("DEBUG AUTH: Token is missing from request headers")
             return jsonify({'message': 'Token is missing!'}), 401
         
         try:
@@ -40,6 +41,7 @@ def token_required(f):
             current_user_id = data['sub']
             user_role = data['role']
         except Exception as e:
+            print(f"DEBUG AUTH: Token validation failed for token: {token[:10]}... Error: {str(e)}")
             return jsonify({'message': 'Token is invalid!', 'error': str(e)}), 401
         
         return f(current_user_id, user_role, *args, **kwargs)
