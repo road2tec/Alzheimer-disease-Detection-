@@ -36,13 +36,21 @@ const Landing = () => {
         <div ref={containerRef} className="bg-white text-slate-900 selection:bg-indigo-100 font-outfit">
             {/* 1. HERO SECTION */}
             <section className="relative min-h-[90vh] flex items-center px-6 lg:px-24 overflow-hidden">
+                {/* Background Image with Overlay */}
                 <motion.div
                     style={{ y: backgroundY }}
-                    className="absolute inset-0 bg-gradient-to-b from-indigo-50/30 via-white to-white -z-20"
-                ></motion.div>
+                    className="absolute inset-0 -z-20"
+                >
+                    <img
+                        src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000"
+                        alt="Medical Background"
+                        className="w-full h-full object-cover opacity-15"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/80 via-white/90 to-white"></div>
+                </motion.div>
 
                 {/* Decorative Background Blobs */}
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-50/40 rounded-full blur-[120px] -z-10 translate-x-1/3 -translate-y-1/3"></div>
+                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-50/20 rounded-full blur-[120px] -z-10 translate-x-1/3 -translate-y-1/3"></div>
 
                 <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-center z-10 w-full mt-20 lg:mt-0">
                     {/* Left Panel: Content */}
