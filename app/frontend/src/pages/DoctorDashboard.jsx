@@ -35,6 +35,7 @@ const DoctorDashboard = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!user?._id) return;
             setLoading(true);
             try {
                 const [patientRes, planRes, reviewRes] = await Promise.all([

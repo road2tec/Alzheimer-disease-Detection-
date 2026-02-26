@@ -9,14 +9,33 @@ plan_bp = Blueprint('plans', __name__)
 def get_plans():
     try:
         doctor_id = request.args.get('doctorId')
-        query = {}
+        pipeline = []
         if doctor_id:
-            query['doctorId'] = ObjectId(doctor_id)
+            pipeline.append({"$match": {"doctorId": ObjectId(doctor_id)}})
             
-        plans = list(plans_collection.find(query))
+        pipeline.extend([
+            {
+                "$lookup": {
+                    "from": "users",
+                    "localField": "doctorId",
+                    "foreignField": "_id",
+                    "as": "doctor"
+                }
+            },
+            {"$unwind": {"path": "$doctor", "preserveNullAndEmptyArrays": True}},
+            {
+                "$addFields": {"doctorName": "$doctor.name"}
+            },
+            {
+                "$project": {"doctor": 0}
+            }
+        ])
+        
+        plans = list(plans_collection.aggregate(pipeline))
         for p in plans:
             p['_id'] = str(p['_id'])
-            p['doctorId'] = str(p['doctorId'])
+            if 'doctorId' in p:
+                p['doctorId'] = str(p['doctorId'])
         return jsonify(plans), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
