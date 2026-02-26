@@ -116,7 +116,7 @@ const UploadMRI = ({ onResult }) => {
                             className="w-full py-3 bg-medical-600 text-white font-bold rounded-xl shadow-lg shadow-medical-100 flex items-center justify-center gap-3 hover:bg-medical-700 transition-all disabled:opacity-50 active:scale-95 text-sm"
                         >
                             {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : <Activity className="w-5 h-5" />}
-                            {loading ? "Running AI Pipeline..." : "Begin Diagnostic Analysis"}
+                            {loading ? "Running ML Model Pipeline..." : "Begin Diagnostic Analysis"}
                         </button>
                     </div>
                 </form>

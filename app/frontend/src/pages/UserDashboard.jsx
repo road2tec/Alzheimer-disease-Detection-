@@ -40,7 +40,7 @@ const UserDashboard = () => {
 
     const stats = [
         { label: 'Past Checks', value: '12', icon: BrainCircuit, color: 'text-indigo-600', bg: 'bg-indigo-50' },
-        { label: 'AI Score', value: '99.9%', icon: ShieldCheck, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+        { label: 'ML Model Score', value: '99.9%', icon: ShieldCheck, color: 'text-emerald-600', bg: 'bg-emerald-50' },
         { label: 'System Status', value: 'Online', icon: Cpu, color: 'text-blue-600', bg: 'bg-blue-50' },
     ];
 
@@ -151,7 +151,7 @@ const UserDashboard = () => {
                                             <MessageSquareQuote className="w-8 h-8" />
                                         </div>
                                         <h2 className="text-3xl font-bold text-slate-900 mb-2">Share Feedback</h2>
-                                        <p className="text-slate-500 font-medium">Help us improve our AI system by sharing your experience.</p>
+                                        <p className="text-slate-500 font-medium">Help us improve our ML Model system by sharing your experience.</p>
                                     </div>
 
                                     <form className="space-y-6" onSubmit={(e) => {

@@ -235,14 +235,14 @@ const AdminDashboard = () => {
                         <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-8 py-6 border-b border-slate-100">
                                 <h3 className="font-bold text-slate-900 text-xl tracking-tight">Recent Scans</h3>
-                                <p className="text-slate-400 text-xs font-semibold mt-1">Latest AI analysis results from the platform.</p>
+                                <p className="text-slate-400 text-xs font-semibold mt-1">Latest ML Model analysis results from the platform.</p>
                             </div>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left">
                                     <thead className="bg-slate-50/50 text-slate-400 text-[10px] font-bold uppercase tracking-widest border-b border-slate-100">
                                         <tr>
                                             <th className="px-8 py-4">User Reference</th>
-                                            <th className="px-8 py-4 text-center">AI Result</th>
+                                            <th className="px-8 py-4 text-center">ML Model Result</th>
                                             <th className="px-8 py-4 text-right">Done At</th>
                                         </tr>
                                     </thead>
@@ -257,7 +257,7 @@ const AdminDashboard = () => {
                                                         p.prediction === 'MCI' ? 'bg-amber-50 text-amber-600 border-amber-100' :
                                                             'bg-emerald-50 text-emerald-600 border-emerald-100'
                                                         }`}>
-                                                        {p.prediction}
+                                                        {p.prediction === 'AD' ? "ALZHEIMER'S RISK" : p.prediction === 'MCI' ? "EARLY CHANGES" : "HEALTHY SCAN"}
                                                     </div>
                                                 </td>
                                                 <td className="px-8 py-5 text-right">

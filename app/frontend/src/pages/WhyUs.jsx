@@ -34,7 +34,7 @@ const WhyUs = () => {
                         Why Choose <span className="text-indigo-600">Us?</span>
                     </h1>
                     <p className="text-slate-500 text-lg md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
-                        We use simple AI and your medical history to help you get the right results fast.
+                        We use simple ML Model and your medical history to help you get the right results fast.
                     </p>
                 </div>
             </section>
@@ -72,8 +72,8 @@ const WhyUs = () => {
                             </h2>
                             <div className="space-y-8">
                                 {[
-                                    { title: "Standard AI", status: "Hard to Know", desc: "Most AI won't tell you how it got the answer.", color: "text-slate-400" },
-                                    { title: "Health AI", status: "Easy to See", desc: "We show you exactly what the AI saw on the brain scan.", color: "text-indigo-600" }
+                                    { title: "Standard ML Model", status: "Hard to Know", desc: "Most ML Model won't tell you how it got the answer.", color: "text-slate-400" },
+                                    { title: "Health ML", status: "Easy to See", desc: "We show you exactly what the ML Model saw on the brain scan.", color: "text-indigo-600" }
                                 ].map((item, i) => (
                                     <div key={i} className="flex gap-6 items-start p-6 bg-slate-50 rounded-3xl border border-slate-100">
                                         <div className={`h-8 w-1 flex-shrink-0 bg-current mt-2 ${item.color}`}></div>

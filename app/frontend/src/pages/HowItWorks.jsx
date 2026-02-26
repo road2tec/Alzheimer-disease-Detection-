@@ -48,14 +48,14 @@ const HowItWorks = () => {
                         <StepCard
                             num="01"
                             title="Cleaning the Photo"
-                            desc="We take your brain photo and make it clear so the AI can see it better."
+                            desc="We take your brain photo and make it clear so the ML Model can see it better."
                             icon={Microscope}
                             theme="bg-slate-900"
                         />
                         <StepCard
                             num="02"
-                            title="AI Checking"
-                            desc="Our smart AI looks at small parts of the photo to find any signs of trouble."
+                            title="ML Model Checking"
+                            desc="Our smart ML Model looks at small parts of the photo to find any signs of trouble."
                             icon={Binary}
                             theme="bg-medical-600"
                         />
@@ -69,14 +69,14 @@ const HowItWorks = () => {
                         <StepCard
                             num="04"
                             title="Putting it Together"
-                            desc="The AI joins the photo results and your health info together to give a clear answer."
+                            desc="The ML Model joins the photo results and your health info together to give a clear answer."
                             icon={Layers}
                             theme="bg-medical-500"
                         />
                         <StepCard
                             num="05"
                             title="Showing the Marks"
-                            desc="We show marks on the brain map so you and the doctor can see what the AI found."
+                            desc="We show marks on the brain map so you and the doctor can see what the ML Model found."
                             icon={Cpu}
                             theme="bg-amber-500"
                         />

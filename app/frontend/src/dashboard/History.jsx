@@ -60,11 +60,11 @@ const History = () => {
                                         </div>
                                     </td>
                                     <td className="px-5 py-3">
-                                        <span className={`px-3 py-1 rounded-full text-[10px] font-black tracking-wide ${record.prediction === 'AD' ? 'bg-red-100 text-red-700' :
+                                        <span className={`px-3 py-1 rounded-full text-[10px] font-black tracking-wide uppercase ${record.prediction === 'AD' ? 'bg-red-100 text-red-700' :
                                             record.prediction === 'MCI' ? 'bg-amber-100 text-amber-700' :
                                                 'bg-emerald-100 text-emerald-700'
                                             }`}>
-                                            {record.prediction}
+                                            {record.prediction === 'AD' ? "Alzheimer's Risk" : record.prediction === 'MCI' ? "Early Changes" : "Healthy Scan"}
                                         </span>
                                     </td>
                                     <td className="px-5 py-3">

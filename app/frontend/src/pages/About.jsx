@@ -51,7 +51,7 @@ const About = () => {
                                 <div>
                                     <h3 className="text-2xl font-bold mb-3 tracking-tight text-slate-900">Made for People</h3>
                                     <p className="text-slate-500 font-medium leading-relaxed">
-                                        We know every person has a story. Our AI is built to be easy to use so you can feel sure about your results.
+                                        We know every person has a story. Our ML Model is built to be easy to use so you can feel sure about your results.
                                     </p>
                                 </div>
                             </div>

@@ -64,7 +64,7 @@ const Landing = () => {
                                 transition={{ duration: 0.8, ease: "easeOut" }}
                                 className="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tight text-slate-900"
                             >
-                                Health <span className="text-indigo-600">AI</span><br />
+                                Health <span className="text-indigo-600">ML Model</span><br />
                                 <span className="text-slate-300 block mt-2">Checkup.</span>
                             </motion.h1>
                         </div>
@@ -75,7 +75,7 @@ const Landing = () => {
                             transition={{ duration: 0.8, delay: 0.4 }}
                             className="text-lg md:text-xl text-slate-500 mb-12 leading-relaxed max-w-lg font-medium"
                         >
-                            A simple way to check your brain health. We use <span className="text-slate-900 font-bold">Smart AI</span> and your <span className="text-slate-900 font-bold">Health Info</span> to give you clear and fast answers.
+                            A simple way to check your brain health. We use <span className="text-slate-900 font-bold">Smart ML Model</span> and your <span className="text-slate-900 font-bold">Health Info</span> to give you clear and fast answers.
                         </motion.p>
 
                         <motion.div
@@ -234,14 +234,14 @@ const Landing = () => {
                                 step: "01",
                                 title: "Upload Photo",
                                 icon: Binary,
-                                desc: "Our AI looks at your brain photo for tiny changes that are too small for humans to see.",
+                                desc: "Our ML Model looks at your brain photo for tiny changes that are too small for humans to see.",
                                 theme: "bg-indigo-600"
                             },
                             {
                                 step: "02",
                                 title: "Add Health Info",
                                 icon: Database,
-                                desc: "Tell us simple things like age and memory scores to help the AI understand your health better.",
+                                desc: "Tell us simple things like age and memory scores to help the ML Model understand your health better.",
                                 theme: "bg-slate-900"
                             },
                             {
@@ -330,7 +330,7 @@ const Landing = () => {
                                     Trusted by <br /><span className="opacity-80">Doctors.</span>
                                 </h2>
                                 <p className="text-xl text-indigo-100 font-medium leading-relaxed mb-10">
-                                    Our AI is easy to understand. It shows clear marks on the brain checkup so doctors can see exactly what was found.
+                                    Our ML Model is easy to understand. It shows clear marks on the brain checkup so doctors can see exactly what was found.
                                 </p>
                                 <div className="grid grid-cols-2 gap-8">
                                     <div className="flex items-center gap-3">
@@ -355,7 +355,7 @@ const Landing = () => {
                         <div className="md:col-span-1">
                             <div className="flex items-center gap-3 mb-6">
                                 <OrbSymbol size="sm" />
-                                <span className="text-2xl font-bold tracking-tight">Health <span className="text-indigo-400">AI</span></span>
+                                <span className="text-2xl font-bold tracking-tight">Health <span className="text-indigo-400">ML Model</span></span>
                             </div>
                             <p className="text-slate-400 text-sm font-medium leading-relaxed">
                                 Making complex brain health checking simple and accessible for everyone.
@@ -394,7 +394,7 @@ const Landing = () => {
 
                     <div className="pt-12 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
                         <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest leading-none">
-                            &copy; 2024 Health AI. For clinical demonstration only.
+                            &copy; 2024 Health ML. For clinical demonstration only.
                         </div>
                         <div className="flex gap-8">
                             <span className="text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:text-white cursor-pointer transition-colors">Twitter</span>

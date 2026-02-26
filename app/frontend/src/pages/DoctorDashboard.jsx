@@ -100,7 +100,7 @@ const DoctorDashboard = () => {
                             Doctor Portal
                         </h2>
                         <p className="text-slate-500 font-medium text-lg mt-1">
-                            {activeTab === 'patients' ? "Review patient reports and AI analysis results." :
+                            {activeTab === 'patients' ? "Review patient reports and ML Model analysis results." :
                                 activeTab === 'doctor-plans' ? "Manage your subscription offerings." :
                                     "Monitor patient feedback and ratings."}
                         </p>
@@ -161,7 +161,7 @@ const DoctorDashboard = () => {
                                     <thead className="bg-slate-50/50 text-slate-400 text-[10px] font-bold uppercase tracking-widest border-b border-slate-100">
                                         <tr>
                                             <th className="px-8 py-4">Patient Profile</th>
-                                            <th className="px-8 py-4">AI Analysis</th>
+                                            <th className="px-8 py-4">ML Model Analysis</th>
                                             <th className="px-8 py-4 text-center">Confidence</th>
                                             <th className="px-8 py-4">Record Date</th>
                                             <th className="px-8 py-4 text-right">Action</th>
@@ -192,7 +192,7 @@ const DoctorDashboard = () => {
                                                 </td>
                                                 <td className="px-8 py-6">
                                                     <span className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase border shadow-sm ${p.prediction === 'AD' ? 'bg-red-50 text-red-600 border-red-100' : p.prediction === 'MCI' ? 'bg-amber-50 text-amber-600 border-amber-100' : 'bg-emerald-50 text-emerald-600 border-emerald-100'}`}>
-                                                        {p.prediction === 'AD' ? 'ALZHEIMER DETECTED' : p.prediction === 'MCI' ? 'MILD IMPAIRMENT' : 'NORMAL SCAN'}
+                                                        {p.prediction === 'AD' ? "ALZHEIMER'S RISK" : p.prediction === 'MCI' ? "EARLY CHANGES" : "HEALTHY SCAN"}
                                                     </span>
                                                 </td>
                                                 <td className="px-8 py-6 text-center">

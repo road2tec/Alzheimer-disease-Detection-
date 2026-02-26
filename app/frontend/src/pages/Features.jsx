@@ -43,13 +43,13 @@ const Features = () => {
                 <div className="container mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <FeatureCard
                         title="Smart Photo Scan"
-                        desc="We use smart AI to find very small changes in your brain photos that are hard to see."
+                        desc="We use smart ML Model to find very small changes in your brain photos that are hard to see."
                         icon={Binary}
                         delay={0.1}
                     />
                     <FeatureCard
                         title="Clear Evidence"
-                        desc="We show you exactly what the AI found so you can trust the answers."
+                        desc="We show you exactly what the ML Model found so you can trust the answers."
                         icon={Eye}
                         delay={0.2}
                     />

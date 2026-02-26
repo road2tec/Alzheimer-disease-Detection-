@@ -51,7 +51,7 @@ const Sidebar = ({ activeTab, onTabChange }) => {
                         <OrbSymbol size="xs" color="white" />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-xl font-bold text-slate-900 tracking-tight leading-none">HealthAI</span>
+                        <span className="text-xl font-bold text-slate-900 tracking-tight leading-none">HealthML</span>
                         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Medical Platform</span>
                     </div>
                 </Link>
