@@ -17,7 +17,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuration
-RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'results', 'grad_cam')
+RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'results', 'grad_cam')
 os.makedirs(RESULTS_FOLDER, exist_ok=True)
 
 # Register Blueprints
