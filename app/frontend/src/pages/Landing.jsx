@@ -39,14 +39,10 @@ const Landing = () => {
                 {/* Background Image with Overlay */}
                 <motion.div
                     style={{ y: backgroundY }}
-                    className="absolute inset-0 -z-20"
+                    className="absolute inset-0 -z-20 w-full h-[120%]"
                 >
-                    <img
-                        src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000"
-                        alt="Medical Background"
-                        className="w-full h-full object-cover opacity-15"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/80 via-white/90 to-white"></div>
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center opacity-30"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/80 to-white"></div>
                 </motion.div>
 
                 {/* Decorative Background Blobs */}
