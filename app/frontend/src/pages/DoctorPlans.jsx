@@ -3,7 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight, Shield, Zap, Sparkles } from 'lucide-react';
 import Navbar from '../components/Navbar';
-import axios from 'axios';
+import { planApi } from '../services/api';
 
 const DoctorPlans = () => {
     const { doctorId } = useParams();
@@ -16,7 +16,7 @@ const DoctorPlans = () => {
     useEffect(() => {
         const fetchPlans = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/plans/?doctorId=${doctorId}`);
+                const res = await planApi.getPlans(doctorId);
                 setPlans(res.data);
             } catch (err) {
                 console.error("Error fetching plans", err);

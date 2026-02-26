@@ -55,11 +55,8 @@ const AdminDashboard = () => {
 
     const fetchReviews = async () => {
         try {
-            const res = await feedbackApi.getAll(); // Using feedbackApi for general list or reviewApi if specific
-            // Wait, feedbackApi.getAll() probably returns feedback. 
-            // I should use reviewApi to get doctor reviews.
-            // Let's assume there's a way to get all reviews for moderation.
-            // For now, I'll use feedbackApi for generic moderation or maybe I should have added getAllReviews in review_routes.py
+            const res = await feedbackApi.getAll();
+            setReviews(res.data);
         } catch (err) {
             console.error("Failed to fetch reviews");
         }
@@ -68,23 +65,11 @@ const AdminDashboard = () => {
     useEffect(() => {
         const init = async () => {
             setLoading(true);
-            await Promise.all([fetchStats(), fetchUsers()]);
+            await Promise.all([fetchStats(), fetchUsers(), fetchReviews()]);
             setLoading(false);
         };
         init();
     }, []);
-
-    useEffect(() => {
-        if (activeTab === 'admin-reviews') {
-            const getReviews = async () => {
-                try {
-                    const res = await feedbackApi.getAll();
-                    setReviews(res.data);
-                } catch (e) { }
-            };
-            getReviews();
-        }
-    }, [activeTab]);
 
     const handleAddDoctor = async (e) => {
         e.preventDefault();

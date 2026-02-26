@@ -3,7 +3,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Star, MessageSquare, ArrowLeft, Send } from 'lucide-react';
 import Navbar from '../components/Navbar';
-import axios from 'axios';
+import { reviewApi } from '../services/api';
 
 const ReviewPage = () => {
     const { doctorId } = useParams();
@@ -22,13 +22,10 @@ const ReviewPage = () => {
 
         setLoading(true);
         try {
-            const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/reviews/', {
+            await reviewApi.addReview({
                 doctorId,
                 rating,
                 comment
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
             });
             alert("Thank you for your feedback!");
             navigate('/user-dashboard');

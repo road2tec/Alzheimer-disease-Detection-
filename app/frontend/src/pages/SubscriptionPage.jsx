@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { CreditCard, ShieldCheck, Lock, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
+import { subscriptionApi } from '../services/api';
 
 const SubscriptionPage = () => {
     const { doctorId, planId } = useParams();
@@ -16,12 +17,9 @@ const SubscriptionPage = () => {
     const handleConfirm = async () => {
         setLoading(true);
         try {
-            const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/subscriptions/', {
+            await subscriptionApi.subscribe({
                 doctorId,
                 planId
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
             });
             setSuccess(true);
             setTimeout(() => navigate('/user-dashboard'), 3000);
